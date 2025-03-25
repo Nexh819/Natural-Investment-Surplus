@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings | Natural Surplus Investment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="settings-wrapper">
+        <header class="settings-header">
+            <div class="header-content">
+                <h1>Account Settings</h1>
+                <p class="subtitle">Manage your account preferences and security</p>
+            </div>
+            <a href="dashboard.html" class="btn-back">
+                <span class="icon-back"></span>
+                Back to Dashboard
+            </a>
+        </header>
+
+        <div class="settings-container">
+            <!-- Settings Navigation -->
+            <nav class="settings-nav">
+                <ul>
+                    <li><a href="#profile-section" class="active" data-section="profile-section">Profile Information</a></li>
+                    <li><a href="#security-section" data-section="security-section">Security</a></li>
+                    <li><a href="#notifications-section" data-section="notifications-section">Notifications</a></li>
+                    <li><a href="#payment-section" data-section="payment-section">Payment Methods</a></li>
+                    <li><a href="#preferences-section" data-section="preferences-section">Preferences</a></li>
+                    <li><a href="#verification-section" data-section="verification-section">Verification</a></li>
+                    <li><a href="#privacy-section" data-section="privacy-section">Privacy</a></li>
+                </ul>
+            </nav>
+
+            <!-- Settings Content -->
+            <div class="settings-content">
+                <!-- Profile Information Section -->
+                <section id="profile-section" class="settings-section active">
+                    <div class="section-header">
+                        <h2>Profile Information</h2>
+                        <p>Manage your personal information</p>
+                    </div>
+
+                    <form id="profile-form" class="settings-form">
+                        <div class="profile-picture-container">
+                            <div class="profile-picture">
+                                <img src="images/default-avatar.png" alt="Profile Picture" id="profile-image">
+                                <div class="profile-picture-overlay">
+                                    <span class="icon-camera"></span>
+                                </div>
+                            </div>
+                            <input type="file" id="profile-picture-upload" accept="image/*" hidden>
+                            <div class="profile-picture-actions">
+                                <button type="button" id="change-picture" class="btn-secondary btn-sm">Change Picture</button>
+                                <button type="button" id="remove-picture" class="btn-text btn-sm">Remove</button>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" value="Matthew" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" value="Munene" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="display-name">Display Name</label>
+                            <input type="text" id="display-name" value="Dadius kiriaga">
+                            <div class="form-hint">This is how your name will appear to other users</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" rows="3" placeholder="Tell others about yourself"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="account-email">Email Address</label>
+                            <input type="email" id="account-email" value="munenemathewo35@gmail.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone-number">Phone Number</label>
+                            <input type="tel" id="phone-number" value="+254712345678" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country" required>
+                                <option value="KE" selected>Kenya</option>
+                                <option value="UG">Uganda</option>
+                                <option value="TZ">Tanzania</option>
+                                <option value="RW">Rwanda</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="ZA">South Africa</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Security Section -->
+                <section id="security-section" class="settings-section">
+                    <div class="section-header">
+                        <h2>Security</h2>
+                        <p>Manage your password and account security</p>
+                    </div>
+
+                    <form id="security-form" class="settings-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" placeholder="Enter your current password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" placeholder="Enter your new password">
+                            <div class="password-strength">
+                                <div class="strength-meter">
+                                    <div class="strength-segment"></div>
+                                    <div class="strength-segment"></div>
+                                    <div class="strength-segment"></div>
+                                    <div class="strength-segment"></div>
+                                </div>
+                                <span class="strength-text">Password strength: <span id="password-strength-text">None</span></span>
+                            </div>
+                            <div class="form-hint">Use at least 8 characters with a mix of letters, numbers & symbols</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm your new password">
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="section-subheader">
+                            <h3>Two-Factor Authentication</h3>
+                            <p>Add an extra layer of security to your account</p>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="two-factor-auth">Enable Two-Factor Authentication</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="two-factor-auth" class="toggle-input">
+                                <label for="two-factor-auth" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div id="two-factor-options" class="hidden">
+                            <div class="form-group">
+                                <label>Authentication Method</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="auth-app" name="auth-method" value="app" checked>
+                                        <label for="auth-app">Authentication App</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="auth-sms" name="auth-method" value="sms">
+                                        <label for="auth-sms">SMS</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="section-subheader">
+                            <h3>Session Management</h3>
+                            <p>Manage your active sessions and devices</p>
+                        </div>
+
+                        <div class="sessions-list">
+                            <div class="session-item">
+                                <div class="session-info">
+                                    <span class="device-icon icon-desktop"></span>
+                                    <div class="device-details">
+                                        <h4>Chrome on Windows</h4>
+                                        <p>Nairobi, Kenya • Current Session</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-text" disabled>Current</button>
+                            </div>
+                            <div class="session-item">
+                                <div class="session-info">
+                                    <span class="device-icon icon-mobile"></span>
+                                    <div class="device-details">
+                                        <h4>Safari on iPhone</h4>
+                                        <p>Nairobi, Kenya • Last active: 2 hours ago</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-text btn-danger">Logout</button>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-secondary btn-block">Logout from all devices</button>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Notifications Section -->
+                <section id="notifications-section" class="settings-section">
+                    <div class="section-header">
+                        <h2>Notifications</h2>
+                        <p>Manage how you receive notifications</p>
+                    </div>
+
+                    <form id="notifications-form" class="settings-form">
+                        <div class="section-subheader">
+                            <h3>Email Notifications</h3>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="email-transactions">Transaction Updates</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="email-transactions" class="toggle-input" checked>
+                                <label for="email-transactions" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="email-investments">Investment Updates</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="email-investments" class="toggle-input" checked>
+                                <label for="email-investments" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="email-news">Company News and Updates</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="email-news" class="toggle-input" checked>
+                                <label for="email-news" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="email-promotions">Promotions and Offers</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="email-promotions" class="toggle-input">
+                                <label for="email-promotions" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="section-subheader">
+                            <h3>SMS Notifications</h3>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="sms-transactions">Transaction Updates</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="sms-transactions" class="toggle-input" checked>
+                                <label for="sms-transactions" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="sms-security">Security Alerts</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="sms-security" class="toggle-input" checked>
+                                <label for="sms-security" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="sms-promotions">Promotions and Offers</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="sms-promotions" class="toggle-input">
+                                <label for="sms-promotions" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="section-subheader">
+                            <h3>Push Notifications</h3>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="push-transactions">Transaction Updates</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="push-transactions" class="toggle-input" checked>
+                                <label for="push-transactions" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="push-investments">Investment Updates</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="push-investments" class="toggle-input">
+                                <label for="push-investments" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Payment Methods Section -->
+                <section id="payment-section" class="settings-section">
+                    <div class="section-header">
+                        <h2>Payment Methods</h2>
+                        <p>Manage your payment methods</p>
+                    </div>
+
+                    <div class="payment-methods-container">
+                        <div class="payment-method-card">
+                            <div class="payment-method-icon icon-mpesa"></div>
+                            <div class="payment-method-details">
+                                <h3>M-Pesa</h3>
+                                <p>Phone: ********678</p>
+                            </div>
+                            <div class="payment-method-actions">
+                                <button class="btn-icon" title="Edit"><span class="icon-edit"></span></button>
+                                <button class="btn-icon" title="Remove"><span class="icon-delete"></span></button>
+                            </div>
+                        </div>
+
+                        <div class="payment-method-card">
+                            <div class="payment-method-icon icon-bank"></div>
+                            <div class="payment-method-details">
+                                <h3>KCB Bank</h3>
+                                <p>Account: ****4567</p>
+                            </div>
+                            <div class="payment-method-actions">
+                                <button class="btn-icon" title="Edit"><span class="icon-edit"></span></button>
+                                <button class="btn-icon" title="Remove"><span class="icon-delete"></span></button>
+                            </div>
+                        </div>
+
+                        <button class="btn-add-payment">
+                            <span class="icon-plus"></span>
+                            Add Payment Method
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Preferences Section -->
+                <section id="preferences-section" class="settings-section">
+                    <div class="section-header">
+                        <h2>Preferences</h2>
+                        <p>Customize your account experience</p>
+                    </div>
+
+                    <form id="preferences-form" class="settings-form">
+                        <div class="section-subheader">
+                            <h3>Appearance</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Theme</label>
+                            <div class="theme-options">
+                                <div class="theme-option">
+                                    <input type="radio" id="theme-light" name="theme" value="light" checked>
+                                    <label for="theme-light">
+                                        <div class="theme-preview light-theme"></div>
+                                        <span>Light</span>
+                                    </label>
+                                </div>
+                                <div class="theme-option">
+                                    <input type="radio" id="theme-dark" name="theme" value="dark">
+                                    <label for="theme-dark">
+                                        <div class="theme-preview dark-theme"></div>
+                                        <span>Dark</span>
+                                    </label>
+                                </div>
+                                <div class="theme-option">
+                                    <input type="radio" id="theme-system" name="theme" value="system">
+                                    <label for="theme-system">
+                                        <div class="theme-preview system-theme"></div>
+                                        <span>System</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option value="en">English</option>
+                                <option value="sw">Kiswahili</option>
+                                <option value="fr">Français</option>
+                            </select>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="section-subheader">
+                            <h3>Dashboard</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="default-dashboard">Default Dashboard Page</label>
+                            <select id="default-dashboard">
+                                <option value="overview">Overview</option>
+                                <option value="investments">Investments</option>
+                                <option value="wallet">Wallet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="show-balance">Show Account Balance</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="show-balance" class="toggle-input" checked>
+                                <label for="show-balance" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Verification Section -->
+                <section id="verification-section" class="settings-section">
+                    <div class="section-header">
+                        <h2>Verification</h2>
+                        <p>Complete your account verification</p>
+                    </div>
+
+                    <div class="verification-status">
+                        <div class="verification-level">
+                            <h3>Current Verification Level: <span class="badge badge-success">Level 1</span></h3>
+                            <p>Complete additional verification to unlock higher transaction limits</p>
+                        </div>
+
+                        <div class="verification-limits">
+                            <div class="limit-item">
+                                <span class="limit-label">Daily Deposit Limit:</span>
+                                <span class="limit-value">Ksh 50,000</span>
+                            </div>
+                            <div class="limit-item">
+                                <span class="limit-label">Daily Withdrawal Limit:</span>
+                                <span class="limit-value">Ksh 50,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="verification-steps">
+                        <div class="step-item completed">
+                            <div class="step-marker">
+                                <span class="step-number">1</span>
+                                <span class="step-check icon-check"></span>
+                            </div>
+                            <div class="step-details">
+                                <h4>Basic Information</h4>
+                                <p>Personal details and contact information</p>
+                                <span class="step-status">Completed</span>
+                            </div>
+                        </div>
+
+                        <div class="step-item active">
+                            <div class="step-marker">
+                                <span class="step-number">2</span>
+                                <span class="step-check icon-check"></span>
+                            </div>
+                            <div class="step-details">
+                                <h4>ID Verification</h4>
+                                <p>Upload a government-issued ID</p>
+                                <button class="btn-secondary btn-sm">Upload ID</button>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-marker">
+                                <span class="step-number">3</span>
+                                <span class="step-check icon-check"></span>
+                            </div>
+                            <div class="step-details">
+                                <h4>Address Verification</h4>
+                                <p>Upload a proof of address</p>
+                                <button class="btn-secondary btn-sm" disabled>Start Verification</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Privacy Section -->
+                <section id="privacy-section" class="settings-section">
+                    <div class="section-header">
+                        <h2>Privacy</h2>
+                        <p>Manage your data and privacy settings</p>
+                    </div>
+
+                    <form id="privacy-form" class="settings-form">
+                        <div class="form-group toggle-group">
+                            <label for="data-collection">Allow data collection for service improvement</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="data-collection" class="toggle-input" checked>
+                                <label for="data-collection" class="toggle-label"></label>
+                            </div>
+                            <div class="form-hint">We collect anonymous usage data to improve our services</div>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="marketing-consent">Consent to marketing communications</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="marketing-consent" class="toggle-input" checked>
+                                <label for="marketing-consent" class="toggle-label"></label>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="data-management">
+                            <h3>Data Management</h3>
+                            <p>Download or delete your personal data</p>
+
+                            <div class="data-actions">
+                                <button type="button" class="btn-secondary">
+                                    <span class="icon-download"></span>
+                                    Download My Data
+                                </button>
+                                <button type="button" class="btn-danger">
+                                    <span class="icon-delete"></span>
+                                    Delete My Account
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Message -->
+    <div id="status-message" class="status-message"></div>
+
+</body>
+</html>

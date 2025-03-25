@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet | Natural Surplus Investment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="wallet-wrapper">
+        <header class="wallet-header">
+            <h1>My Wallet</h1>
+            <p class="subtitle">Manage your funds and track transactions</p>
+        </header>
+
+        <section class="wallet-overview">
+            <div class="balance-card">
+                <h3>Available Balance</h3>
+                <p id="wallet-balance" class="balance-amount">Ksh 0</p>
+                <div class="balance-actions">
+                    <button class="btn-primary btn-deposit" id="deposit-btn">
+                        <span class="icon icon-deposit"></span>
+                        Deposit
+                    </button>
+                    <button class="btn-secondary btn-withdraw" id="withdraw-btn">
+                        <span class="icon icon-withdraw"></span>
+                        Withdraw
+                    </button>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <h4>This Month</h4>
+                    <p id="monthly-earnings">Ksh 0</p>
+                    <span class="stat-label">Earnings</span>
+                </div>
+                <div class="stat-card">
+                    <h4>This Month</h4>
+                    <p id="monthly-withdrawals">Ksh 0</p>
+                    <span class="stat-label">Withdrawals</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="payment-methods">
+            <div class="section-header">
+                <h2>Payment Methods</h2>
+                <button class="btn-link btn-add-payment-method" id="add-payment-method-btn">
+                    <span class="icon icon-plus"></span>
+                    Add New
+                </button>
+            </div>
+            <div id="payment-methods-list" class="payment-methods-container">
+                <!-- Payment methods will be displayed here -->
+                <p class="empty-state" id="no-payment-methods">No payment methods added yet</p>
+            </div>
+        </section>
+
+        <section class="transaction-history">
+            <div class="section-header">
+                <h2>Transaction History</h2>
+                <div class="transaction-filter">
+                    <select id="transaction-filter">
+                        <option value="all">All Transactions</option>
+                        <option value="deposit">Deposits</option>
+                        <option value="withdraw">Withdrawals</option>
+                    </select>
+                </div>
+            </div>
+            <div class="transaction-table-container">
+                <table id="transaction-history-table" class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Transaction History will be populated here by JS -->
+                    </tbody>
+                </table>
+                <p class="empty-state" id="no-transactions">No transactions yet</p>
+            </div>
+            <div class="pagination">
+                <button id="prev-page" class="btn-pagination" disabled>&laquo; Previous</button>
+                <span id="page-indicator">Page 1 of 1</span>
+                <button id="next-page" class="btn-pagination" disabled>Next &raquo;</button>
+            </div>
+        </section>
+
+        <!-- Deposit Modal -->
+        <div id="deposit-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Deposit Funds</h3>
+                    <button id="close-deposit-modal" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="deposit-form">
+                        <div class="form-group">
+                            <label for="deposit-amount">Amount (Ksh)</label>
+                            <input type="number" id="deposit-amount" placeholder="Enter amount to deposit" min="100" step="1" required>
+                            <small class="form-hint">Minimum deposit: Ksh 100</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="deposit-payment-method">Payment Method</label>
+                            <select id="deposit-payment-method" required>
+                                <!-- Payment methods will be populated here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="deposit-reference">Reference (Optional)</label>
+                            <input type="text" id="deposit-reference" placeholder="Add a reference for this transaction">
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="cancel-deposit" class="btn-secondary">Cancel</button>
+                            <button type="submit" id="submit-deposit" class="btn-primary">Deposit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Withdraw Modal -->
+        <div id="withdraw-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Withdraw Funds</h3>
+                    <button id="close-withdraw-modal" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="withdraw-form">
+                        <div class="form-group">
+                            <label for="withdraw-amount">Amount (Ksh)</label>
+                            <input type="number" id="withdraw-amount" placeholder="Enter amount to withdraw" min="100" step="1" required>
+                            <small class="form-hint">Available balance: <span id="available-balance">Ksh 0</span></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="withdraw-payment-method">Withdraw To</label>
+                            <select id="withdraw-payment-method" required>
+                                <!-- Payment methods will be populated here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="withdraw-reference">Reference (Optional)</label>
+                            <input type="text" id="withdraw-reference" placeholder="Add a reference for this transaction">
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="cancel-withdraw" class="btn-secondary">Cancel</button>
+                            <button type="submit" id="submit-withdraw" class="btn-primary">Withdraw</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Payment Method Modal -->
+        <div id="payment-method-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Payment Method</h3>
+                    <button id="close-payment-method-modal" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="payment-method-form">
+                        <div class="form-group">
+                            <label for="payment-method-type">Payment Method Type</label>
+                            <select id="payment-method-type" required>
+                                <option value="">Select payment method</option>
+                                <option value="bank">Bank Transfer</option>
+                                <option value="mobile">Mobile Money</option>
+                                <option value="card">Credit/Debit Card</option>
+                            </select>
+                        </div>
+                        <div class="form-group payment-details" id="bank-details">
+                            <label for="bank-name">Bank Name</label>
+                            <input type="text" id="bank-name" placeholder="Enter bank name">
+                            <label for="account-number">Account Number</label>
+                            <input type="text" id="account-number" placeholder="Enter account number">
+                        </div>
+                        <div class="form-group payment-details" id="mobile-details">
+                            <label for="mobile-provider">Provider</label>
+                            <select id="mobile-provider">
+                                <option value="mpesa">M-Pesa</option>
+                                <option value="airtel">Airtel Money</option>
+                            </select>
+                            <label for="phone-number">Phone Number</label>
+                            <input type="tel" id="phone-number" placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group payment-details" id="card-details">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX">
+                            <div class="card-flex">
+                                <div>
+                                    <label for="expiry-date">Expiry Date</label>
+                                    <input type="text" id="expiry-date" placeholder="MM/YY">
+                                </div>
+                                <div>
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="XXX">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="cancel-payment-method" class="btn-secondary">Cancel</button>
+                            <button type="submit" id="submit-payment-method" class="btn-primary">Add Method</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Message -->
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <script src="wallet.js"></script>
+</body>
+</html>

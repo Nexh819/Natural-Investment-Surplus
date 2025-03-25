@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | Natural Surplus Investment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="profile-wrapper">
+        <header class="profile-header">
+            <h1>User Profile</h1>
+            <p class="subtitle">Manage your account information and preferences</p>
+        </header>
+
+        <section class="profile-content">
+            <form id="profile-form" enctype="multipart/form-data">
+                <!-- Profile Picture Preview -->
+                <div class="profile-picture-container">
+                    <div class="profile-picture-preview" id="profile-picture-preview">
+                        <img src="images/default-avatar.png" alt="Profile Picture" id="preview-image">
+                    </div>
+                    <div class="form-group file-upload">
+                        <label for="profile-picture" class="upload-label">Change Picture</label>
+                        <input type="file" id="profile-picture" accept="image/*">
+                    </div>
+                </div>
+
+                <!-- Personal Information Fields -->
+                <div class="form-section">
+                    <h2>Personal Information</h2>
+                    <div class="form-group">
+                        <label for="profile-username">Username</label>
+                        <input type="text" id="profile-username" value="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-email">Email</label>
+                        <input type="email" id="profile-email" value="munenemathewo35@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-password">New Password</label>
+                        <input type="password" id="profile-password" placeholder="Leave blank to keep the same">
+                        <small class="form-hint">Password must be at least 8 characters long</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-confirm-password">Confirm New Password</label>
+                        <input type="password" id="profile-confirm-password" placeholder="Confirm your new password">
+                    </div>
+                </div>
+
+                <!-- Account Preferences Section -->
+                <div class="form-section">
+                    <h2>Account Preferences</h2>
+                    <div class="preference-item">
+                        <label for="dark-mode" class="toggle-label">Enable Dark Mode</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="dark-mode" class="toggle-input">
+                            <label for="dark-mode" class="toggle-label-switch"></label>
+                        </div>
+                    </div>
+
+                    <div class="preference-item">
+                        <label for="email-notifications" class="toggle-label">Email Notifications</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="email-notifications" class="toggle-input" checked>
+                            <label for="email-notifications" class="toggle-label-switch"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Changes Button -->
+                <div class="form-actions">
+                    <button type="button" id="cancel-changes" class="btn-cancel">Cancel</button>
+                    <button type="submit" id="save-profile" class="btn-save">Save Changes</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Status Message -->
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

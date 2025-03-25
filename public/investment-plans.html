@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Plans | Natural Surplus Investment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/natural-surplus-logo.png" alt="Natural Surplus Logo" class="logo">
+                <h2>Natural Surplus</h2>
+                <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="active"><a href="investment-plans.html"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+                    <li><a href="wallet.html"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                    <li><a href="transaction-history.html"><i class="fas fa-history"></i> Transaction History</a></li>
+                    <li><a href="referrals.html"><i class="fas fa-user-friends"></i> Referrals</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <div><i class="fas fa-cog"></i> Settings</div>
+                            <i class="fas fa-angle-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="account-settings.html"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+                            <li><a href="system-settings.html"><i class="fas fa-sliders-h"></i> System Settings</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="help-and-support.html"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="theme-toggle">
+                    <span class="theme-label">Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <button id="sidebar-logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                <div class="user-profile">
+                    <div class="notifications" id="notifications-trigger">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-count">3</span>
+                        
+                        <!-- Notifications dropdown -->
+                        <div class="notifications-dropdown" id="notifications-dropdown">
+                            <div class="dropdown-header">
+                                <h3>Notifications</h3>
+                                <a href="#" class="mark-all-read">Mark all as read</a>
+                            </div>
+                            <ul class="notifications-list">
+                                <li class="notification-item unread">
+                                    <div class="notification-icon deposit">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Your deposit of <strong>KSh 5,000</strong> has been processed</p>
+                                        <span class="notification-time">2 hours ago</span>
+                                    </div>
+                                </li>
+                                <li class="notification-item unread">
+                                    <div class="notification-icon investment">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Investment <strong>#INV1001</strong> has earned a return of <strong>KSh 240</strong></p>
+                                        <span class="notification-time">Yesterday</span>
+                                    </div>
+                                </li>
+                                <li class="notification-item unread">
+                                    <div class="notification-icon system">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Security alert: New login from Nairobi, Kenya</p>
+                                        <span class="notification-time">2 days ago</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="dropdown-footer">
+                                <a href="notifications.html">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-info" id="profile-trigger">
+                        <img src="images/default-avatar.png" alt="Profile" class="profile-img">
+                        <div class="user-details">
+                            <span id="username">Dadius kiriaga</span>
+                            <span class="user-role">Pro Investor</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-arrow"></i>
+                    </div>
+                    
+                    <!-- Enhanced profile dropdown -->
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <div class="dropdown-header">
+                            <img src="images/default-avatar.png" alt="Profile" class="dropdown-profile-img">
+                            <div>
+                                <span id="dropdown-username">Dadius kiriaga</span>
+                                <span class="dropdown-email">munenemathewo35@gmail.com</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Account balance summary -->
+                        <div class="dropdown-balance">
+                            <span>Available Balance</span>
+                            <h3>Ksh <span id="dropdown-balance">15,000</span></h3>
+                        </div>
+                        
+                        <!-- Quick actions -->
+                        <div class="dropdown-quick-actions">
+                            <a href="wallet.html?action=deposit" class="quick-action-btn">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add Funds</span>
+                            </a>
+                            <a href="wallet.html?action=transfer" class="quick-action-btn">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span>Transfer</span>
+                            </a>
+                            <a href="wallet.html?action=withdraw" class="quick-action-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Withdraw</span>
+                            </a>
+                        </div>
+                        
+                        <ul class="dropdown-menu">
+                            <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                            <li><a href="wallet.html"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                            <li><a href="transaction-history.html"><i class="fas fa-history"></i> Transaction History</a></li>
+                            <li><a href="referrals.html"><i class="fas fa-user-friends"></i> Referrals</a></li>
+                            <li><a href="account-settings.html"><i class="fas fa-cog"></i> Account Settings</a></li>
+                            <li><a href="help-and-support.html"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                            <li><a href="https://wa.link/z3afes" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Support</a></li>
+                            <li>
+                                <a href="#" id="dropdown-theme-toggle">
+                                    <i class="fas fa-moon dark-icon"></i>
+                                    <i class="fas fa-sun light-icon"></i>
+                                    <span id="theme-mode-text">Dark Mode</span>
+                                </a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="#" id="dropdown-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="page-header">
+                    <h1>Investment Plans</h1>
+                    <p class="page-description">Choose from our range of investment plans to start growing your money</p>
+                </div>
+
+                <div class="info-banner">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Before investing, ensure you have sufficient funds in your wallet. Your current balance is <strong>Ksh <span id="wallet-balance">15,000</span></strong>. <a href="wallet.html" class="banner-link">Add more funds</a></p>
+                </div>
+
+                <!-- High Returns Notice -->
+                <div class="info-banner warning">
+                    <i class="fas fa-percentage"></i>
+                    <p>Our investment plans offer daily returns with high ROI. Choose the plan that best suits your investment goals.</p>
+                </div>
+
+                <!-- Investment Plans Section -->
+                <div class="investment-plans" id="investment-plans-container">
+                    <!-- Plans will be loaded dynamically from the JavaScript -->
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading investment plans...</p>
+                    </div>
+                </div>
+
+                <!-- Referral Program Section -->
+                <section class="referral-program">
+                    <h2><i class="fas fa-user-friends"></i> Referral Program</h2>
+                    <div class="referral-container">
+                        <div class="referral-details">
+                            <h3>Earn While You Share</h3>
+                            <p>Invite friends to join Natural Surplus Investment and earn commissions on their investments.</p>
+                            
+                            <div class="referral-tiers">
+                                <div class="referral-tier">
+                                    <div class="tier-icon level-1">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="tier-details">
+                                        <h4>Level 1 (Direct)</h4>
+                                        <p>Earn <strong>18%</strong> commission</p>
+                                    </div>
+                                </div>
+                                <div class="referral-tier">
+                                    <div class="tier-icon level-2">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="tier-details">
+                                        <h4>Level 2</h4>
+                                        <p>Earn <strong>5%</strong> commission</p>
+                                    </div>
+                                </div>
+                                <div class="referral-tier">
+                                    <div class="tier-icon level-3">
+                                        <i class="fas fa-user-friends"></i>
+                                    </div>
+                                    <div class="tier-details">
+                                        <h4>Level 3</h4>
+                                        <p>Earn <strong>2%</strong> commission</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="referral-example">
+                                <h4>Example:</h4>
+                                <p>If your direct referral invests Ksh 50,000, you earn Ksh 9,000 (18%).</p>
+                                <p>If they refer someone who invests Ksh 50,000, you earn an additional Ksh 2,500 (5%).</p>
+                                <p>If the third level invests Ksh 50,000, you earn Ksh 1,000 (2%).</p>
+                            </div>
+                        </div>
+                        
+                        <div class="referral-action">
+                            <h3>Your Referral Link</h3>
+                            <div class="referral-link-box">
+                                <input type="text" id="referral-link" value="https://naturalsurplus.investments/ref/DAD13X5F" readonly>
+                                <button id="copy-referral-link" class="btn-copy">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="social-share">
+                                <p>Share via:</p>
+                                <div class="share-buttons">
+                                    <a href="#" class="share-btn whatsapp" id="share-whatsapp">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </a>
+                                    <a href="#" class="share-btn facebook" id="share-facebook">
+                                        <i class="fab fa-facebook-f"></i> Facebook
+                                    </a>
+                                    <a href="#" class="share-btn twitter" id="share-twitter">
+                                        <i class="fab fa-twitter"></i> Twitter
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How It Works Section -->
+                <section class="how-it-works">
+                    <h2><i class="fas fa-question-circle"></i> How It Works</h2>
+                    <div class="steps">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <h3>Fund Your Wallet</h3>
+                            <p>Add funds to your wallet using M-Pesa, bank transfer, or other available methods.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-icon">
+                                <i class="fas fa-hand-pointer"></i>
+                            </div>
+                            <h3>Choose a Plan</h3>
+                            <p>Select an investment plan that matches your goals and enter the amount you want to invest.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Earn Returns</h3>
+                            <p>Watch your investment grow as you earn daily returns credited to your account.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <div class="step-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3>Get Paid</h3>
+                            <p>Withdraw your earnings and capital at the end of the investment term.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section class="faq-section">
+                    <h2><i class="fas fa-info-circle"></i> Frequently Asked Questions</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What is the minimum investment amount?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>The minimum investment amount varies by plan, starting from as low as Ksh 600 for our Starter plan. Each plan is designed to accommodate different investment capacities and goals.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>How are returns calculated and paid?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Returns are calculated daily based on the fixed daily return of your chosen plan. The returns are credited to your account every day and can be viewed in your dashboard. Your initial capital plus earned returns are available at the end of the investment term.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>Can I withdraw my investment before the end of the term?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Early withdrawals are subject to a 10% fee on the principal amount. However, you can withdraw your daily earnings at any time without any penalty.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>Is my investment secure?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, at Natural Surplus Investment, we prioritize the security of your investments. We have implemented robust security measures to protect your funds and personal information. Additionally, we are fully compliant with all relevant regulations.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>Can I have multiple investments at once?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, you can have multiple active investments across different plans simultaneously. This allows you to diversify your investment portfolio and maximize your returns.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="dashboard-footer">
+                <div class="footer-content">
+                    <p>&copy; 2025 Natural Surplus Investment. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="help-and-support.html">Help & Support</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Investment Modal -->
+    <div id="investment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Invest in <span id="plan-name">Plan</span></h3>
+                <button id="close-investment-modal" class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="investment-form">
+                    <input type="hidden" id="plan-id" value="">
+                    
+                    <div class="plan-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Daily Return:</span>
+                            <span class="detail-value" id="plan-daily-return">Ksh 0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value" id="plan-duration">0 days</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Total Return:</span>
+                            <span class="detail-value" id="plan-total-return">Ksh 0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="investment-amount">Investment Amount (Ksh)</label>
+                        <input type="number" id="investment-amount" value="0" readonly>
+                        <small class="form-hint">Fixed amount for this plan</small>
+                    </div>
+                    
+                    <div class="investment-summary">
+                        <h4>Investment Summary</h4>
+                        <div class="summary-item">
+                            <span>Initial Investment</span>
+                            <span id="summary-investment">Ksh 0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Daily Return</span>
+                            <span id="summary-daily-return">Ksh 0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Duration</span>
+                            <span id="summary-duration">0 days</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-item total">
+                            <span>Total Return</span>
+                            <span id="summary-total-return">Ksh 0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="cancel-investment" class="btn-secondary">Cancel</button>
+                        <button type="submit" id="confirm-investment" class="btn-primary">Confirm Investment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Message -->
+    <div id="status-message" class="status-message"></div>
+
+    <script src="investment-plans.js"></script>
+    <script src="index.js"></script>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Direct settings dropdown functionality for this page
+      const settingsDropdown = document.querySelector('.sidebar-nav .dropdown');
+      const settingsToggle = settingsDropdown?.querySelector('.dropdown-toggle');
+      
+      if (settingsToggle && settingsDropdown) {
+        console.log('Found dropdown elements');
+        
+        settingsToggle.addEventListener('click', function(e) {
+          console.log('Settings clicked');
+          e.preventDefault();
+          settingsDropdown.classList.toggle('active');
+          
+          // Toggle icon direction
+          const arrow = this.querySelector('.dropdown-icon');
+          if (arrow) {
+            if (settingsDropdown.classList.contains('active')) {
+              arrow.classList.remove('fa-angle-right');
+              arrow.classList.add('fa-angle-down');
+            } else {
+              arrow.classList.remove('fa-angle-down');
+              arrow.classList.add('fa-angle-right');
+            }
+          }
+        });
+      }
+    });
+    </script>
+    <script src="investment-plans.js"></script>
+    <script src="index.js"></script>
+</html>

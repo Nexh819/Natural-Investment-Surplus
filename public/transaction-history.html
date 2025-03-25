@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History | Natural Surplus Investment</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/natural-surplus-logo.png" alt="Natural Surplus Logo" class="logo">
+                <h2>Natural Surplus</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="index.html"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+                    <li class="active"><a href="transaction-history.html"><i class="fas fa-history"></i> Transaction History</a></li>
+                    <li><a href="#"><i class="fas fa-user-friends"></i> Referrals</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="sidebar-logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search transactions...">
+                </div>
+                
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="profile-info" id="profile-trigger">
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img">
+                        <div class="user-details">
+                            <span id="username">John Doe</span>
+                            <span class="user-role">Investor</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-arrow"></i>
+                    </div>
+                    
+                    <!-- Enhanced profile dropdown -->
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <div class="dropdown-header">
+                            <img src="https://via.placeholder.com/40" alt="Profile" class="dropdown-profile-img">
+                            <div>
+                                <span id="dropdown-username">John Doe</span>
+                                <span class="dropdown-email">munenemathewo35@gmail.com</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Account balance summary -->
+                        <div class="dropdown-balance">
+                            <span>Available Balance</span>
+                            <h3>Ksh <span id="dropdown-balance">15,000</span></h3>
+                        </div>
+                        
+                        <!-- Quick actions -->
+                        <div class="dropdown-quick-actions">
+                            <button class="quick-action-btn">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add Funds</span>
+                            </button>
+                            <button class="quick-action-btn">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span>Transfer</span>
+                            </button>
+                            <button class="quick-action-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Withdraw</span>
+                            </button>
+                        </div>
+                        
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                            <li><a href="#"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                            <li><a href="transaction-history.html"><i class="fas fa-history"></i> Transaction History</a></li>
+                            <li><a href="#"><i class="fas fa-user-friends"></i> Referrals</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Account Settings</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                            <li><a href="#"><i class="fas fa-moon"></i> Dark Mode</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="#" id="dropdown-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <h1 class="page-title">Transaction History</h1>
+                
+                <div class="transaction-filters">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>Filter by Type</label>
+                            <select id="type-filter">
+                                <option value="all">All Transactions</option>
+                                <option value="deposit">Deposits</option>
+                                <option value="withdrawal">Withdrawals</option>
+                                <option value="investment">Investments</option>
+                                <option value="return">Investment Returns</option>
+                                <option value="referral">Referral Commissions</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Date Range</label>
+                            <div class="date-inputs">
+                                <input type="date" id="date-from" class="date-input">
+                                <span>to</span>
+                                <input type="date" id="date-to" class="date-input">
+                            </div>
+                        </div>
+                        <button id="filter-btn" class="btn-filter">Apply Filters</button>
+                    </div>
+                </div>
+                
+                <div class="transaction-summary">
+                    <div class="summary-card in">
+                        <div class="summary-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Total In</h3>
+                            <p>Ksh <span id="total-in">20,000</span></p>
+                        </div>
+                    </div>
+                    <div class="summary-card out">
+                        <div class="summary-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Total Out</h3>
+                            <p>Ksh <span id="total-out">5,000</span></p>
+                        </div>
+                    </div>
+                    <div class="summary-card net">
+                        <div class="summary-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Net Amount</h3>
+                            <p>Ksh <span id="net-amount">15,000</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="transactions-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Transaction ID</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Transactions will be loaded here by JS -->
+                        </tbody>
+                    </table>
+                    
+                    <div class="pagination">
+                        <button id="prev-page" class="btn-page"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <span id="page-info">Page 1 of 5</span>
+                        <button id="next-page" class="btn-page">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="transaction-history.js"></script>
+</body>
+</html>

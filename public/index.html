@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Surplus Investment Plans</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/natural-surplus-logo.png" alt="Natural Surplus Logo" class="logo">
+                <h2>Natural Surplus</h2>
+                <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="investment-plans.html"><i class="fas fa-chart-line"></i> Investment Plans</a></li>
+                    <li><a href="wallet.html"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                    <li><a href="transaction-history.html"><i class="fas fa-history"></i> Transaction History</a></li>
+                    <li><a href="referrals.html"><i class="fas fa-user-friends"></i> Referrals</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <div><i class="fas fa-cog"></i> Settings</div>
+                            <i class="fas fa-angle-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="account-settings.html"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+                            <li><a href="system-settings.html"><i class="fas fa-sliders-h"></i> System Settings</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="help-and-support.html"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="theme-toggle">
+                    <span class="theme-label">Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <button id="sidebar-logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications" id="notifications-trigger">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-count">3</span>
+                        
+                        <!-- Notifications dropdown -->
+                        <div class="notifications-dropdown" id="notifications-dropdown">
+                            <div class="dropdown-header">
+                                <h3>Notifications</h3>
+                                <a href="#" class="mark-all-read">Mark all as read</a>
+                            </div>
+                            <ul class="notifications-list">
+                                <li class="notification-item unread">
+                                    <div class="notification-icon deposit">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Your deposit of <strong>KSh 5,000</strong> has been processed</p>
+                                        <span class="notification-time">2 hours ago</span>
+                                    </div>
+                                </li>
+                                <li class="notification-item unread">
+                                    <div class="notification-icon investment">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Investment <strong>#INV1001</strong> has earned a return of <strong>KSh 240</strong></p>
+                                        <span class="notification-time">Yesterday</span>
+                                    </div>
+                                </li>
+                                <li class="notification-item unread">
+                                    <div class="notification-icon system">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Security alert: New login from Nairobi, Kenya</p>
+                                        <span class="notification-time">2 days ago</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="dropdown-footer">
+                                <a href="notifications.html">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-info" id="profile-trigger">
+                        <img src="images/default-avatar.png" alt="Profile" class="profile-img">
+                        <div class="user-details">
+                            <span id="username">Dadius kiriaga</span>
+                            <span class="user-role">Pro Investor</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-arrow"></i>
+                    </div>
+                    
+                    <!-- Enhanced profile dropdown -->
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <div class="dropdown-header">
+                            <img src="images/default-avatar.png" alt="Profile" class="dropdown-profile-img">
+                            <div>
+                                <span id="dropdown-username">Dadius kiriaga</span>
+                                <span class="dropdown-email">munenemathewo35@gmail.com</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Account balance summary -->
+                        <div class="dropdown-balance">
+                            <span>Available Balance</span>
+                            <h3>Ksh <span id="dropdown-balance">15,000</span></h3>
+                        </div>
+                        
+                        <!-- Quick actions -->
+                        <div class="dropdown-quick-actions">
+                            <a href="wallet.html?action=deposit" class="quick-action-btn">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add Funds</span>
+                            </a>
+                            <a href="wallet.html?action=transfer" class="quick-action-btn">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span>Transfer</span>
+                            </a>
+                            <a href="wallet.html?action=withdraw" class="quick-action-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Withdraw</span>
+                            </a>
+                        </div>
+                        
+                        <ul class="dropdown-menu">
+                            <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                            <li><a href="wallet.html"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                            <li><a href="transaction-history.html"><i class="fas fa-history"></i> Transaction History</a></li>
+                            <li><a href="referrals.html"><i class="fas fa-user-friends"></i> Referrals</a></li>
+                            <li><a href="account-settings.html"><i class="fas fa-cog"></i> Account Settings</a></li>
+                            <li><a href="help-and-support.html"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                            <li><a href="https://wa.link/z3afes" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Support</a></li>
+                            <li>
+                                <a href="#" id="dropdown-theme-toggle">
+                                    <i class="fas fa-moon dark-icon"></i>
+                                    <i class="fas fa-sun light-icon"></i>
+                                    <span id="theme-mode-text">Dark Mode</span>
+                                </a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="#" id="dropdown-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Hero Section -->
+                <section class="hero-section">
+                    <div class="hero-content">
+                        <h1>Invest in Your Future with Natural Surplus</h1>
+                        <p>Earn daily returns from sustainable agricultural investments while making a positive impact.</p>
+                        <div class="hero-cta">
+                            <a href="investment-plans.html" class="btn-primary">Start Investing</a>
+                            <a href="#how-it-works" class="btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-info">
+                                <h3>5,000+</h3>
+                                <p>Investors</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="stat-info">
+                                <h3>Ksh 150M+</h3>
+                                <p>Total Investments</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <div class="stat-info">
+                                <h3>Ksh 45M+</h3>
+                                <p>Returns Paid</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- User Investment Overview (for logged in users) -->
+                <section class="user-overview">
+                    <h2>Your Investment Overview</h2>
+                    <div class="overview-cards">
+                        <div class="overview-card">
+                            <div class="card-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>Total Invested</h3>
+                                <p>Ksh <span id="total-invested">50,000</span></p>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="card-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>Available Balance</h3>
+                                <p>Ksh <span id="available-balance">15,000</span></p>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="card-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>Total Earnings</h3>
+                                <p>Ksh <span id="total-earnings">8,750</span></p>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="card-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>Referral Earnings</h3>
+                                <p>Ksh <span id="referral-earnings">2,500</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overview-actions">
+                        <a href="investment-plans.html" class="btn-primary">New Investment</a>
+                        <a href="dashboard.html" class="btn-secondary">View Details</a>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section class="features-section">
+                    <h2>Why Choose Natural Surplus</h2>
+                    <div class="features-container">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
+                            <h3>High Daily Returns</h3>
+                            <p>Earn up to Ksh 16,000 daily from your investments with our premium plans.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Secure Investments</h3>
+                            <p>Your investments are backed by real agricultural projects with proven track records.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3>Sustainable Impact</h3>
+                            <p>Support sustainable agriculture while growing your wealth.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h3>Daily Payouts</h3>
+                            <p>Receive returns daily directly to your account balance.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Featured Plans Section -->
+                <section class="featured-plans-section">
+                    <div class="section-header">
+                        <h2>Our Top Investment Plans</h2>
+                        <p>Choose from our range of high-return investment plans</p>
+                        <a href="investment-plans.html" class="view-all-link">View All Plans <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="featured-plans-container">
+                        <!-- Starter Plan -->
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <div class="plan-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <h3>Starter</h3>
+                                <div class="plan-price">
+                                    <span>Ksh 600</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <div class="plan-feature">
+                                    <i class="fas fa-coins"></i>
+                                    <div>
+                                        <h4>Daily Return</h4>
+                                        <p>Ksh 120</p>
+                                    </div>
+                                </div>
+                                <div class="plan-feature">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <div>
+                                        <h4>Duration</h4>
+                                        <p>20 days</p>
+                                    </div>
+                                </div>
+                                <div class="plan-feature">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <div>
+                                        <h4>Total Return</h4>
+                                        <p>Ksh 2,400 (400%)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="investment-plans.html" class="invest-btn">Invest Now</a>
+                        </div>
+                        
+                        <!-- Gold Plan -->
+                        <div class="plan-card featured">
+                            <div class="plan-tag">Most Popular</div>
+                            <div class="plan-header">
+                                <div class="plan-icon">
+                                    <i class="fas fa-tree"></i>
+                                </div>
+                                <h3>Gold</h3>
+                                <div class="plan-price">
+                                    <span>Ksh 5,000</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <div class="plan-feature">
+                                    <i class="fas fa-coins"></i>
+                                    <div>
+                                        <h4>Daily Return</h4>
+                                        <p>Ksh 1,000</p>
+                                    </div>
+                                </div>
+                                <div class="plan-feature">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <div>
+                                        <h4>Duration</h4>
+                                        <p>40 days</p>
+                                    </div>
+                                </div>
+                                <div class="plan-feature">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <div>
+                                        <h4>Total Return</h4>
+                                        <p>Ksh 40,000 (800%)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="investment-plans.html" class="invest-btn">Invest Now</a>
+                        </div>
+                        
+                        <!-- Premium Plan -->
+                        <div class="plan-card">
+                            <div class="plan-tag">Best Value</div>
+                            <div class="plan-header">
+                                <div class="plan-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <h3>VIP</h3>
+                                <div class="plan-price">
+                                    <span>Ksh 50,000</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <div class="plan-feature">
+                                    <i class="fas fa-coins"></i>
+                                    <div>
+                                        <h4>Daily Return</h4>
+                                        <p>Ksh 16,000</p>
+                                    </div>
+                                </div>
+                                <div class="plan-feature">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <div>
+                                        <h4>Duration</h4>
+                                        <p>64 days</p>
+                                    </div>
+                                </div>
+                                <div class="plan-feature">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <div>
+                                        <h4>Total Return</h4>
+                                        <p>Ksh 1,024,000 (2,048%)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="investment-plans.html" class="invest-btn">Invest Now</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How It Works Section -->
+                <section class="how-it-works" id="how-it-works">
+                    <h2><i class="fas fa-lightbulb"></i> How It Works</h2>
+                    <div class="steps">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-icon">
+                                <i class="fas fa-hand-pointer"></i>
+                            </div>
+                            <h3>Choose a Plan</h3>
+                            <p>Select an investment plan that suits your budget and investment goals.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <h3>Invest</h3>
+                            <p>Fund your investment using our secure payment methods with just a few clicks.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Earn Daily</h3>
+                            <p>Receive daily returns directly to your account balance and track your earnings.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <div class="step-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3>Withdraw Anytime</h3>
+                            <p>Withdraw your earnings to your preferred payment method whenever you want.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Testimonials Section -->
+                <section class="testimonials-section">
+                    <h2>What Our Investors Say</h2>
+                    <div class="testimonials-container">
+                        <div class="testimonial-card">
+                            <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">"I invested Ksh 50,000 in the Elite plan and have been receiving consistent daily returns. The platform is easy to use, and the team is very responsive to questions."</p>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial-1.jpg" alt="Sarah W." class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h4>Sarah Wanjiku</h4>
+                                    <p>Investor since 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">"Natural Surplus has transformed my financial situation. I started with the Basic plan and have since upgraded to Premium. The daily returns are consistent and reliable."</p>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial-2.jpg" alt="David K." class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h4>David Kamau</h4>
+                                    <p>Investor since 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                            <p class="testimonial-text">"The referral program is amazing! I've earned over Ksh 200,000 just by inviting friends to invest. It's a win-win situation for everyone involved."</p>
+                            <div class="testimonial-author">
+                                <img src="images/testimonial-3.jpg" alt="Mary O." class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h4>Mary Otieno</h4>
+                                    <p>Investor since 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Referral Program Section -->
+                <section class="referral-program-section">
+                    <div class="referral-content">
+                        <h2>Earn Up to 18% Commission</h2>
+                        <p>Invite friends to invest with Natural Surplus and earn generous commissions on their investments.</p>
+                        
+                        <div class="referral-tiers">
+                            <div class="referral-tier">
+                                <div class="tier-icon level-1">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="tier-details">
+                                    <h4>Level 1</h4>
+                                    <p><strong>18%</strong> commission</p>
+                                </div>
+                            </div>
+                            <div class="referral-tier">
+                                <div class="tier-icon level-2">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="tier-details">
+                                    <h4>Level 2</h4>
+                                    <p><strong>5%</strong> commission</p>
+                                </div>
+                            </div>
+                            <div class="referral-tier">
+                                <div class="tier-icon level-3">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                <div class="tier-details">
+                                    <h4>Level 3</h4>
+                                    <p><strong>2%</strong> commission</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="referrals.html" class="btn-primary">Start Referring</a>
+                    </div>
+                    <div class="referral-example">
+                        <h3>Example:</h3>
+                        <div class="example-scenario">
+                            <i class="fas fa-user-check"></i>
+                            <p>You refer John, who invests Ksh 50,000. You earn <strong>Ksh 9,000</strong> (18%).</p>
+                        </div>
+                        <div class="example-scenario">
+                            <i class="fas fa-user-check"></i>
+                            <p>John refers Mary, who invests Ksh 50,000. You earn <strong>Ksh 2,500</strong> (5%).</p>
+                        </div>
+                        <div class="example-scenario">
+                            <i class="fas fa-user-check"></i>
+                            <p>Mary refers Peter, who invests Ksh 50,000. You earn <strong>Ksh 1,000</strong> (2%).</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section class="faq-section">
+                    <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>How do daily returns work?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Daily returns are automatically credited to your account balance every 24 hours after your investment starts. You can withdraw your returns anytime or reinvest them for compound growth.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What is the minimum investment amount?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our starter plan begins at just Ksh 600, making it accessible for new investors to get started. We have various plans to suit different investment capacities.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>Can I withdraw my investment before the duration ends?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Early withdrawals are subject to a 10% fee. Your principal amount minus the fee will be returned to your account balance. However, you can withdraw your daily earnings at any time without penalties.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>How are the agriculture projects selected?</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our team of agriculture experts carefully selects sustainable projects with proven track records. We focus on projects that benefit local communities while providing consistent returns to our investors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA Section -->
+                <section class="cta-section">
+                    <h2>Ready to Start Earning Daily Returns?</h2>
+                    <p>Join thousands of investors who are growing their wealth with Natural Surplus Investment</p>
+                    <div class="cta-buttons">
+                        <a href="investment-plans.html" class="btn-primary">Invest Now</a>
+                        <a href="help-and-support.html" class="btn-secondary">Contact Us</a>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="dashboard-footer">
+                <div class="footer-content">
+                    <p>&copy; 2025 Natural Surplus Investment. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="help-and-support.html">Help & Support</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Status Message -->
+    <div id="status-message" class="status-message"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
