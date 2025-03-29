@@ -33,7 +33,12 @@ mongoose.connect(mongoURI)
 app.use(express.json());
 
 // Enable CORS to allow cross-origin requests
-app.use(cors()); // This line enables CORS for all incoming requests
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:4000', 'https://www.naturalsurplus.online', 'https://naturalsurplus.online'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Middleware to serve static files (e.g., HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')));
