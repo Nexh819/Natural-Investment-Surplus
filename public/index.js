@@ -22,33 +22,54 @@ document.addEventListener('DOMContentLoaded', function() {
     setupQuickActions();
 
     // Logout functionality (sidebar button)
-    const sidebarLogoutBtn = document.getElementById('sidebar-logout-btn');
-    if (sidebarLogoutBtn) {
-        sidebarLogoutBtn.addEventListener('click', handleLogout);
+const sidebarLogoutBtn = document.getElementById('sidebar-logout-btn');
+if (sidebarLogoutBtn) {
+    sidebarLogoutBtn.addEventListener('click', handleLogout);
+}
 
-        // Settings dropdown functionality
-if (settingsDropdown) {
-    const settingsToggle = settingsDropdown.querySelector('.dropdown-toggle');
-    
-    // Toggle dropdown on click
-    settingsToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        settingsDropdown.classList.toggle('active');
+// Fix for settings dropdown functionality
+const settingsDropdowns = document.querySelectorAll('.sidebar-nav .dropdown');
+if (settingsDropdowns.length > 0) {
+    settingsDropdowns.forEach(dropdown => {
+        const toggleBtn = dropdown.querySelector('.dropdown-toggle');
         
-        // Toggle the direction of the arrow icon
-        const arrow = this.querySelector('.dropdown-icon');
-        if (arrow) {
-            if (settingsDropdown.classList.contains('active')) {
-                arrow.classList.remove('fa-angle-right');
-                arrow.classList.add('fa-angle-down');
-            } else {
-                arrow.classList.remove('fa-angle-down');
-                arrow.classList.add('fa-angle-right');
-            }
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropdown.classList.toggle('active');
+                
+                // Toggle icon direction
+                const icon = this.querySelector('.dropdown-icon');
+                if (icon) {
+                    if (dropdown.classList.contains('active')) {
+                        icon.classList.remove('fa-angle-right');
+                        icon.classList.add('fa-angle-down');
+                    } else {
+                        icon.classList.remove('fa-angle-down');
+                        icon.classList.add('fa-angle-right');
+                    }
+                }
+            });
         }
     });
+    
+    // Close dropdown when clicking elsewhere
+    document.addEventListener('click', function(e) {
+        settingsDropdowns.forEach(dropdown => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+                
+                // Reset icon
+                const icon = dropdown.querySelector('.dropdown-icon');
+                if (icon) {
+                    icon.classList.remove('fa-angle-down');
+                    icon.classList.add('fa-angle-right');
+                }
+            }
+        });
+    });
 }
-    }
 
     // Logout functionality (dropdown button)
     const dropdownLogoutBtn = document.getElementById('dropdown-logout-btn');

@@ -86,14 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
             withdrawForm: document.querySelector('#withdraw-modal .modal-content'),
             depositAmount: document.getElementById('deposit-amount'),
             withdrawAmount: document.getElementById('withdraw-amount'),
-            statusMessage: document.createElement('div')
+            statusMessage: document.getElementById('status-message')
         },
 
         init() {
-            // Add status message element to DOM
-            this.elements.statusMessage.className = 'status-message';
-            document.querySelector('.wallet-wrapper').appendChild(this.elements.statusMessage);
-            
             // Initialize UI
             this.updateBalance();
             this.updateTransactionHistory();
@@ -103,6 +99,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         updateBalance() {
             this.elements.balanceDisplay.textContent = `Ksh ${walletService.getBalance().toLocaleString()}`;
+            
+            // Also update available balance in withdrawal form
+            const availableBalance = document.getElementById('available-balance');
+            if (availableBalance) {
+                availableBalance.textContent = `Ksh ${walletService.getBalance().toLocaleString()}`;
+            }
         },
 
         updateTransactionHistory() {
@@ -212,6 +214,15 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('submit-withdraw').addEventListener('click', () => {
                 this.handleWithdraw();
             });
+
+            // M-PESA payment form
+            const mpesaForm = document.getElementById('mpesa-payment-form');
+            if (mpesaForm) {
+                mpesaForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleMpesaPayment();
+                });
+            }
         },
 
         handleDeposit() {
@@ -266,6 +277,109 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
 
+        handleMpesaPayment() {
+            const phoneNumber = document.getElementById('mpesa-phone-number').value;
+            const amount = parseFloat(document.getElementById('mpesa-payment-amount').value);
+            const purpose = document.getElementById('mpesa-payment-purpose').value;
+            
+            // Validate phone number (basic Kenya phone number validation)
+            const phoneRegex = /^(0|254|\+254)?(7|1)[0-9]{8}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                this.showMessage('Please enter a valid M-PESA phone number', 'error');
+                return;
+            }
+            
+            // Validate amount
+            if (!amount || isNaN(amount) || amount < 10) {
+                this.showMessage('Please enter a valid amount (minimum KSh 10)', 'error');
+                return;
+            }
+            
+            // Call M-PESA integration function
+            this.initiateMpesaPayment(phoneNumber, amount, purpose);
+        },
+
+        initiateMpesaPayment(phoneNumber, amount, purpose) {
+            // Show loading state
+            const payBtn = document.getElementById('mpesa-pay-btn');
+            const originalBtnText = payBtn.textContent;
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            payBtn.disabled = true;
+            
+            // Show status message
+            this.showMessage('Initiating M-PESA payment...', 'info');
+            
+            // Format phone number (ensure it starts with 254)
+            let formattedPhone = phoneNumber.trim();
+            if (formattedPhone.startsWith('0')) {
+                formattedPhone = '254' + formattedPhone.substring(1);
+            }
+            if (!formattedPhone.startsWith('254')) {
+                formattedPhone = '254' + formattedPhone;
+            }
+            
+            // Show the payment status UI
+            const mpesaStatusDiv = document.getElementById('mpesa-payment-status');
+            mpesaStatusDiv.style.display = 'block';
+            document.getElementById('mpesa-status-title').textContent = 'Payment Initiated';
+            document.getElementById('mpesa-status-message').textContent = 'Please check your phone for the M-PESA prompt and enter your PIN.';
+            
+            // For demo purposes, we'll simulate the STK push process
+            // In a real implementation, this would be an API call to your backend
+            
+            // Simulate a delay for STK push (2 seconds)
+            setTimeout(() => {
+                // Update status UI to show waiting for confirmation
+                document.getElementById('mpesa-status-title').textContent = 'Awaiting Confirmation';
+                
+                // Simulate the payment confirmation process (5 seconds)
+                setTimeout(() => {
+                    // Simulate a successful payment
+                    const success = true; // For demo purposes; real implementation would verify payment status
+                    
+                    if (success) {
+                        // Update transaction history
+                        walletService.addTransaction('Deposit', amount, 'M-Pesa');
+                        
+                        // Update UI
+                        this.updateBalance();
+                        this.updateTransactionHistory();
+                        
+                        // Show success message
+                        document.getElementById('mpesa-status-icon').classList.remove('fa-spinner', 'fa-spin');
+                        document.getElementById('mpesa-status-icon').classList.add('fa-check-circle');
+                        document.getElementById('mpesa-status-title').textContent = 'Payment Successful';
+                        document.getElementById('mpesa-status-message').textContent = `Your account has been credited with KSh ${amount}.`;
+                        
+                        // Show success status message
+                        this.showMessage('M-PESA payment successful! Your account has been credited.', 'success');
+                        
+                        // Reset form after 3 seconds
+                        setTimeout(() => {
+                            document.getElementById('mpesa-phone-number').value = '';
+                            document.getElementById('mpesa-payment-amount').value = '';
+                            payBtn.innerHTML = originalBtnText;
+                            payBtn.disabled = false;
+                            mpesaStatusDiv.style.display = 'none';
+                        }, 3000);
+                    } else {
+                        // Handle failed payment
+                        document.getElementById('mpesa-status-icon').classList.remove('fa-spinner', 'fa-spin');
+                        document.getElementById('mpesa-status-icon').classList.add('fa-times-circle');
+                        document.getElementById('mpesa-status-title').textContent = 'Payment Failed';
+                        document.getElementById('mpesa-status-message').textContent = 'The payment could not be processed. Please try again.';
+                        
+                        // Show error status message
+                        this.showMessage('M-PESA payment failed. Please try again.', 'error');
+                        
+                        // Reset button
+                        payBtn.innerHTML = originalBtnText;
+                        payBtn.disabled = false;
+                    }
+                }, 5000);
+            }, 2000);
+        },
+
         showAddPaymentMethodForm() {
             // In a real app, this would show a modal with a form
             // For this example, we'll use a simple prompt
@@ -286,6 +400,10 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         showMessage(message, type = 'info') {
+            if (!this.elements.statusMessage) {
+                this.elements.statusMessage = document.getElementById('status-message');
+            }
+            
             this.elements.statusMessage.textContent = message;
             this.elements.statusMessage.className = `status-message ${type}`;
             this.elements.statusMessage.style.display = 'block';
@@ -353,187 +471,159 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', addMobileEnhancements);
 });
 
-// M-Pesa integration functions
-const mpesaService = {
-    // Simulate M-Pesa STK Push
-    initiateSTKPush(phoneNumber, amount, callbackFn) {
-        // Show loading indicator
-        walletUI.showMessage("Processing M-Pesa request...", "info");
-        
-        // In a real implementation, this would be an API call to your backend
-        // which would then call the M-Pesa API to initiate the STK push
-        
-        // Simulate API request with setTimeout
-        setTimeout(() => {
-            // Simulate successful STK push
-            console.log(`STK push initiated for ${phoneNumber} with amount ${amount}`);
-            
-            // Show confirmation to user that STK has been sent
-            walletUI.showMessage("Please check your phone for the M-Pesa prompt", "info");
-            
-            // In a real app, you would now wait for a callback from your server
-            // when the transaction is completed or failed
-            
-            // For demo purposes, we'll simulate a successful transaction after 5 seconds
+// M-PESA API Integration
+const mpesaAPI = {
+    // In a real implementation, these would be API calls to your backend
+    // which would then call the Safaricom Daraja API
+    
+    // Get OAuth token from Safaricom
+    getAccessToken() {
+        // This would be a server-side operation
+        return new Promise((resolve) => {
+            // Simulate successful token retrieval
             setTimeout(() => {
-                // Call the callback function with success status
-                if (typeof callbackFn === 'function') {
-                    callbackFn({ success: true, transactionId: 'MP' + Math.floor(Math.random() * 1000000) });
-                }
-            }, 5000);
-        }, 2000);
+                resolve({
+                    access_token: "simulated_access_token",
+                    expires_in: "3599"
+                });
+            }, 500);
+        });
     },
     
-    // Format phone number to required format (254XXXXXXXXX)
-    formatPhoneNumber(phone) {
-        // Remove any non-digit characters
-        let cleaned = phone.replace(/\D/g, '');
-        
-        // If number starts with 0, replace with 254
-        if (cleaned.startsWith('0')) {
-            cleaned = '254' + cleaned.substring(1);
-        }
-        
-        // If number doesn't start with 254, add it
-        if (!cleaned.startsWith('254')) {
-            cleaned = '254' + cleaned;
-        }
-        
-        return cleaned;
+    // Initiate STK Push
+    initiateSTKPush(phoneNumber, amount, accountReference) {
+        // This would call your backend API, which would then call Safaricom
+        return new Promise((resolve) => {
+            // Simulate successful STK push
+            setTimeout(() => {
+                resolve({
+                    success: true,
+                    CheckoutRequestID: "ws_CO_" + Date.now(),
+                    CustomerMessage: "Success. Request accepted for processing"
+                });
+            }, 1000);
+        });
     },
     
-    // Validate phone number
-    validatePhone(phone) {
-        // Basic validation for Kenya phone numbers
-        const regex = /^(0|254|\+254)?(7|1)[0-9]{8}$/;
-        return regex.test(phone);
+    // Check transaction status
+    checkTransactionStatus(checkoutRequestID) {
+        // This would call your backend API to check transaction status
+        return new Promise((resolve) => {
+            // Simulate successful transaction
+            setTimeout(() => {
+                resolve({
+                    success: true,
+                    ResultCode: "0",
+                    ResultDesc: "The service request is processed successfully."
+                });
+            }, 2000);
+        });
     }
 };
 
-// Modify your existing handleDeposit function in walletUI
-walletUI.handleDeposit = function() {
-    const amount = parseFloat(this.elements.depositAmount.value);
-    const validation = walletService.validateDeposit(amount);
-    
-    if (!validation.valid) {
-        this.showMessage(validation.message, 'error');
-        return;
-    }
-    
-    // Get selected payment method
-    const paymentMethodSelect = document.getElementById('deposit-payment-method');
-    const paymentMethodId = paymentMethodSelect.value;
-    
-    // Find the payment method object
-    const paymentMethods = walletService.getPaymentMethods();
-    const paymentMethod = paymentMethods.find(method => method.id === paymentMethodId);
-    
-    if (!paymentMethod) {
-        this.showMessage('Please select a valid payment method', 'error');
-        return;
-    }
-    
-    // Close deposit modal first
-    this.elements.depositModal.style.display = 'none';
-    
-    // Handle based on payment method type
-    if (paymentMethod.method.toLowerCase().includes('m-pesa')) {
-        // Get phone number from payment method or prompt user
-        let phoneNumber = '';
-        
-        // Extract phone from the payment method details if available
-        const phoneMatch = paymentMethod.details.match(/\d+/g);
-        if (phoneMatch) {
-            phoneNumber = phoneMatch.join('');
+// Add CSS styles for M-PESA section
+(() => {
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `
+        /* M-PESA Payment Section Styles */
+        .payment-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
-        // If phone number is not available or invalid, prompt user
-        if (!mpesaService.validatePhone(phoneNumber)) {
-            phoneNumber = prompt("Enter M-Pesa phone number (e.g., 07XXXXXXXX):", "");
-            
-            if (!phoneNumber) {
-                this.showMessage('Deposit cancelled', 'info');
-                return;
-            }
-            
-            if (!mpesaService.validatePhone(phoneNumber)) {
-                this.showMessage('Invalid phone number format', 'error');
-                return;
-            }
+        .payment-section h2 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
         }
         
-        // Format phone number
-        phoneNumber = mpesaService.formatPhoneNumber(phoneNumber);
-        
-        // Initiate STK push
-        mpesaService.initiateSTKPush(phoneNumber, amount, (result) => {
-            if (result.success) {
-                // Transaction successful
-                try {
-                    walletService.addTransaction('Deposit', amount, 'M-Pesa');
-                    this.updateBalance();
-                    this.updateTransactionHistory();
-                    this.elements.depositAmount.value = '';
-                    this.showMessage('M-Pesa deposit successful!', 'success');
-                } catch (error) {
-                    this.showMessage('An error occurred while processing your deposit', 'error');
-                    console.error(error);
-                }
-            } else {
-                // Transaction failed
-                this.showMessage('M-Pesa transaction failed. Please try again.', 'error');
-            }
-        });
-    } else {
-        // Handle other payment methods
-        try {
-            walletService.addTransaction('Deposit', amount, paymentMethod.method);
-            this.updateBalance();
-            this.updateTransactionHistory();
-            this.elements.depositAmount.value = '';
-            this.showMessage('Deposit successful!', 'success');
-        } catch (error) {
-            this.showMessage('An error occurred while processing your deposit', 'error');
-            console.error(error);
+        .payment-section h2 i {
+            margin-right: 10px;
+            color: #16a085;
         }
-    }
-};
-
-// Add this code to your setupEventListeners function in walletUI
-// Add to setupEventListeners method
-walletUI.setupEventListeners = function() {
-    // Your existing code...
-    
-    // Add payment method selection change handler
-    const depositPaymentMethod = document.getElementById('deposit-payment-method');
-    if (depositPaymentMethod) {
-        depositPaymentMethod.addEventListener('change', () => {
-            // Show appropriate fields based on selected payment method
-            const selectedMethod = depositPaymentMethod.options[depositPaymentMethod.selectedIndex].text;
-            
-            // Clear any previously shown custom fields
-            const customFieldsContainer = document.getElementById('payment-method-fields');
-            if (customFieldsContainer) {
-                customFieldsContainer.innerHTML = '';
-                
-                // Add M-Pesa phone input if M-Pesa is selected
-                if (selectedMethod.toLowerCase().includes('m-pesa')) {
-                    const mpesaFields = document.createElement('div');
-                    mpesaFields.innerHTML = `
-                        <div class="form-group">
-                            <label for="mpesa-phone">M-Pesa Phone Number</label>
-                            <div class="phone-input">
-                                <span class="country-code">+254</span>
-                                <input type="text" id="mpesa-phone" placeholder="7XX XXX XXX" maxlength="9">
-                            </div>
-                            <small class="form-hint">Enter the phone number registered with M-Pesa</small>
-                        </div>
-                    `;
-                    customFieldsContainer.appendChild(mpesaFields);
-                }
-            }
-        });
-    }
-    
-    // Your existing code...
-};
+        
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+        }
+        
+        .input-with-icon input {
+            padding-left: 35px;
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .form-hint {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* Payment Status Styles */
+        .payment-status {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .status-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #16a085;
+        }
+        
+        .status-icon .fa-check-circle {
+            color: #27ae60;
+        }
+        
+        .status-icon .fa-times-circle {
+            color: #e74c3c;
+        }
+        
+        #mpesa-status-title {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        
+        #mpesa-status-message {
+            color: #555;
+            margin-bottom: 0;
+        }
+    `;
+    document.head.appendChild(styleSheet);
+})();

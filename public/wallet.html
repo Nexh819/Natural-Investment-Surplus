@@ -6,6 +6,8 @@
     <title>Wallet | Natural Surplus Investment</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -42,6 +44,58 @@
                     <p id="monthly-withdrawals">Ksh 0</p>
                     <span class="stat-label">Withdrawals</span>
                 </div>
+            </div>
+        </section>
+
+        <!-- M-PESA Payment Section -->
+        <section class="payment-section" id="mpesa-payment-section">
+            <div class="section-header">
+                <h2><i class="fas fa-money-bill-wave"></i> M-PESA Payment</h2>
+                <p>Pay directly using M-PESA. You will receive a prompt on your phone to complete the payment.</p>
+            </div>
+            
+            <form id="mpesa-payment-form" class="payment-form">
+                <div class="form-group">
+                    <label for="mpesa-phone-number">M-PESA Phone Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="mpesa-phone-number" placeholder="e.g., 07XXXXXXXX" required>
+                    </div>
+                    <small class="form-hint">Enter the phone number registered with M-PESA</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mpesa-payment-amount">Amount (KSh)</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-money-bill"></i>
+                        <input type="number" id="mpesa-payment-amount" min="10" required>
+                    </div>
+                    <small class="form-hint">Minimum amount: KSh 10</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mpesa-payment-purpose">Purpose</label>
+                    <select id="mpesa-payment-purpose">
+                        <option value="investment">Investment</option>
+                        <option value="deposit">Account Deposit</option>
+                        <option value="topup">Wallet Top-up</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" id="mpesa-pay-btn" class="btn-primary btn-block">
+                        <i class="fas fa-credit-card"></i> Pay with M-PESA
+                    </button>
+                </div>
+            </form>
+            
+            <!-- M-PESA Payment Status UI -->
+            <div class="payment-status" id="mpesa-payment-status" style="display: none;">
+                <div class="status-icon">
+                    <i class="fas fa-spinner fa-spin" id="mpesa-status-icon"></i>
+                </div>
+                <h4 id="mpesa-status-title">Processing Payment</h4>
+                <p id="mpesa-status-message">Please check your phone for the M-PESA prompt and enter your PIN.</p>
             </div>
         </section>
 
